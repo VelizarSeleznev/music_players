@@ -30,16 +30,54 @@ def get_song_info(deezer_url):
             'song': song_name,
             'artist': artist_name
         }
-    
-    except requests.exceptions.RequestException as e:
-        return f"Error fetching data: {str(e)}"
-    except KeyError as e:
-        return f"Error parsing response: {str(e)}"
-    except IndexError:
-        return "Invalid Deezer URL format"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+def find_track(song_name, artist_name):
+    try:
+        # Create search query
+        query = f"{song_name} artist:'{artist_name}'"
+        
+        # Deezer search API endpoint
+        search_url = "https://api.deezer.com/search"
+        params = {
+            'q': query
+        }
+        
+        # Make API request
+        response = requests.get(search_url, params=params)
+        response.raise_for_status()
+        
+        # Parse response
+        data = response.json()
+        
+        if not data.get('data'):
+            return "No tracks found"
+            
+        # Get the first result
+        track = data['data'][0]
+        
+        return {
+            'track_id': track['id'],
+            'title': track['title'],
+            'artist': track['artist']['name'],
+            'album': track['album']['title'],
+            'duration': track['duration'],  # duration in seconds
+            'preview': track['preview'],    # 30-second preview URL
+            'link': track['link']          # Deezer track URL
+        }
+        
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 # Example usage
 if __name__ == "__main__":
+    # First, get song info from URL
     deezer_url = "https://deezer.page.link/nikuG1hQefajJXkZA"
-    result = get_song_info(deezer_url)
-    print(result)
+    song_info = get_song_info(deezer_url)
+    print("Original song info:", song_info)
+    
+    # Then use that info to find the track
+    if isinstance(song_info, dict):
+        result = find_track(song_info['song'], song_info['artist'])
+        print("\nFound track details:", result)
