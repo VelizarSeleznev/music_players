@@ -1,10 +1,15 @@
 [project]
 name = "music-players"
 version = "0.1.0"
-description = "Add your description here"
+description = "Multi-platform music search and information retrieval tool"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "apple-music-python>=1.0.6",
     "deezer-python>=7.1.1",
+    "python-dotenv>=1.0.1",
     "requests>=2.32.3",
+    "spotipy>=2.24.0",
+    "ytmusicapi>=1.9.1",
+    "yandex-music>=2.1.1",
 ]
