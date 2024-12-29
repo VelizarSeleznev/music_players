@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Link Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .platform-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+        .result-card {
+            margin-top: 20px;
+        }
+        .platform-link {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            text-decoration: none;
+            color: inherit;
+        }
+        .platform-link:hover {
+            opacity: 0.8;
+        }
+        .spotify-color { color: #1DB954; }
+        .deezer-color { color: #FF0092; }
+        .youtube-color { color: #FF0000; }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Music Link Converter</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" class="mb-3">
+                            {{ form.csrf_token }}
+                            <div class="mb-3">
+                                {{ form.url.label(class="form-label") }}
+                                {{ form.url(class="form-control", placeholder="Paste a Spotify, Deezer, or YouTube Music link") }}
+                            </div>
+                            {{ form.submit(class="btn btn-primary w-100") }}
+                        </form>
+                        
+                        {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+
+                        {% if result %}
+                        <div class="result-card">
+                            <h5>Original Track</h5>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ result.original.song }}</h6>
+                                    <p class="card-text">by {{ result.original.artist }}</p>
+                                    <a href="{{ result.original.url }}" target="_blank" class="platform-link">
+                                        <img src="{{ url_for('static', filename=result.original.platform + '.png') }}" alt="{{ result.original.platform }}" class="platform-icon">
+                                        Listen on {{ result.original.platform|title }}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <h5>Available on Other Platforms</h5>
+                            <div class="list-group">
+                                {% for platform, info in result.alternatives.items() %}
+                                <a href="{{ info.url }}" target="_blank" class="list-group-item list-group-item-action platform-link {{ platform }}-color">
+                                    <img src="{{ url_for('static', filename=platform + '.png') }}" alt="{{ platform }}" class="platform-icon">
+                                    {{ info.title }} - {{ info.artist }}
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

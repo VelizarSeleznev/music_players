@@ -220,9 +220,13 @@ class MusicPlatform:
     def _search_deezer(self, song_name: str, artist_name: str) -> Dict[str, Any]:
         """Search on Deezer"""
         try:
-            query = f"{song_name} artist:'{artist_name}'"
-            search_url = "https://api.deezer.com/search"
-            response = requests.get(search_url, params={'q': query})
+            # Create a more specific search query for tracks
+            query = quote(f'track:"{song_name}" artist:"{artist_name}"')
+            search_url = "https://api.deezer.com/search/track"  # Use track-specific endpoint
+            response = requests.get(search_url, params={
+                'q': query,
+                'strict': 'on'  # Enable strict mode for more accurate results
+            })
             data = response.json()
             
             if not data.get('data'):

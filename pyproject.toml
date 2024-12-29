@@ -11,5 +11,7 @@ dependencies = [
     "requests>=2.32.3",
     "spotipy>=2.24.0",
     "ytmusicapi>=1.9.1",
-    "yandex-music>=2.1.1",
+    "python-dotenv>=1.0.1",
+    "flask>=3.0.0",
+    "flask-wtf>=1.2.1",
 ]

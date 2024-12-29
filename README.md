@@ -3,15 +3,15 @@
 A Python library that provides a unified interface to search and retrieve song information from multiple music streaming platforms:
 - Spotify
 - YouTube Music
-- Apple Music
 - Deezer
 
 ## Features
 
-- Search songs by name and artist across all supported platforms
+- Search songs by name and artist across supported platforms
 - Extract song information from platform-specific URLs
-- Unified response format across all platforms
-- Type hints for better development experience
+- Convert music links between different platforms
+- Web interface for easy link conversion
+- REST API endpoint for programmatic access
 
 ## Setup
 
@@ -24,10 +24,39 @@ pip install -e .
    - Copy `.env.example` to `.env`
    - Fill in your API credentials:
      - For Spotify: Get credentials from [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-     - For Apple Music: Get credentials from [Apple Developer](https://developer.apple.com/documentation/applemusicapi)
-     - Deezer and YouTube Music don't require credentials for basic usage
+   - Set a secret key for Flask:
+     ```
+     FLASK_SECRET_KEY=your_secret_key_here
+     ```
 
 ## Usage
+
+### Web Interface
+
+1. Start the web server:
+```bash
+python app.py
+```
+
+2. Open your browser and go to `http://localhost:5000`
+
+3. Paste a music link from any supported platform (Spotify, Deezer, or YouTube Music)
+
+4. Click "Convert" to get links to the same song on other platforms
+
+### REST API
+
+You can also use the REST API endpoint to convert links programmatically:
+
+```python
+import requests
+
+response = requests.post('http://localhost:5000/api/convert', 
+    json={'url': 'https://open.spotify.com/track/your_track_id'})
+result = response.json()
+```
+
+### Python Library
 
 ```python
 from music_search import MusicPlatform
