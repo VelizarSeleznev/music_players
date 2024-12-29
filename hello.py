@@ -2,7 +2,7 @@ import requests
 
 def get_song_info(deezer_url):
     try:
-        # Follow redirects to get the full URL
+        # Follow redirects to get the full URL;;;
         response = requests.get(deezer_url, allow_redirects=True)
         response.raise_for_status()
         
