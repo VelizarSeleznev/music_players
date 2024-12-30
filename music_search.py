@@ -51,8 +51,11 @@ class MusicPlatform:
     def _init_ytmusic(self):
         """Initialize YouTube Music client"""
         try:
+            print("Initializing YouTube Music client...")
             self.ytmusic = YTMusic()
-        except Exception:
+            print("YouTube Music client initialized successfully")
+        except Exception as e:
+            print(f"Error initializing YouTube Music client: {str(e)}")
             self.ytmusic = None
 
     def _init_apple_music(self):
@@ -289,16 +292,20 @@ class MusicPlatform:
     def _search_youtube_music(self, song_name: str, artist_name: str) -> Dict[str, Any]:
         """Search on YouTube Music"""
         if not self.ytmusic:
+            print("YouTube Music API not initialized, returning error")
             return {"error": "YouTube Music API not initialized"}
         
         try:
+            print(f"Searching YouTube Music for: {song_name} by {artist_name}")
             query = f"{song_name} {artist_name}"
             results = self.ytmusic.search(query, filter="songs", limit=1)
             
             if not results:
+                print("No results found on YouTube Music")
                 return {"error": "No results found"}
             
             track = results[0]
+            print(f"Found track on YouTube Music: {track['title']}")
             return {
                 'title': track['title'],
                 'artist': track['artists'][0]['name'],
@@ -306,6 +313,7 @@ class MusicPlatform:
                 'url': f"https://music.youtube.com/watch?v={track['videoId']}"
             }
         except Exception as e:
+            print(f"Error searching YouTube Music: {str(e)}")
             return {"error": f"Search failed: {str(e)}"}
 
     def _search_yandex_music(self, song_name: str, artist_name: str) -> Dict[str, Any]:

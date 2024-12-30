@@ -1,17 +1,19 @@
-[tool.poetry]
+[project]
 name = "music-players"
 version = "0.1.0"
 description = "Multi-platform music search and information retrieval tool"
-authors = ["your_email@example.com"]  # Укажите свой email
-python = ">=3.12"
-
-[tool.poetry.dependencies]
-python = ">=3.12"
-apple-music-python = ">=1.0.6"
-deezer-python = ">=7.1.1"
-python-dotenv = ">=1.0.1"
-requests = ">=2.32.3"
-spotipy = ">=2.24.0"
-ytmusicapi = ">=1.9.1"
-flask = ">=3.0.0"
-flask-wtf = ">=1.2.1"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "apple-music-python>=1.0.6",
+    "deezer-python>=7.1.1",
+    "python-dotenv>=1.0.1",
+    "requests>=2.32.3",
+    "spotipy>=2.24.0",
+    "ytmusicapi>=1.9.1",
+    "python-dotenv>=1.0.1",
+    "flask>=3.0.0",
+    "flask-wtf>=1.2.1",
+    "flask-cors>=5.0.0",
+    "pillow>=11.0.0",
+]

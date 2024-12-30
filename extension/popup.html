@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music Platform Converter</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+    }
+    .platform-link {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      text-decoration: none;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .spotify {
+      background-color: #1DB954;
+    }
+    .deezer {
+      background-color: #00C7F2;
+    }
+    .youtube_music {
+      background-color: #FF0000;
+    }
+    .loading {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .error {
+      color: red;
+      text-align: center;
+    }
+    .song-info {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading" class="loading">
+    <p>Converting link...</p>
+  </div>
+  <div id="error" class="error" style="display: none;"></div>
+  <div id="content" style="display: none;">
+    <div class="song-info">
+      <h3 id="songTitle"></h3>
+      <p id="artistName"></p>
+    </div>
+    <div id="links"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 
